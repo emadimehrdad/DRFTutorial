@@ -16,9 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from .views import ArticleListView, ArticleDetailView, UserListView, UserDetailView
+
+app_name = "api"
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
-    path("", include("blog.urls")),
-    path("api", include("api.urls"))
+    path("", ArticleListView.as_view(), name="article-list"),
+    path("/users/", UserListView.as_view(), name="user-list"),
+    path("/<slug:slug>", ArticleDetailView.as_view(), name="article-detail"),
+    path("/users/<int:pk>", UserDetailView.as_view(), name="user-detail"),
 ]

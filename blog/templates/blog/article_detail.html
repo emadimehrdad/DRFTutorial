@@ -1,0 +1,9 @@
+{% extends "blog/base.html" %}
+{% block main %}
+        <article>
+            <h1>{{ article.title }}</h1>
+            <div>{{ article.author }}</div>
+            <div>{{ article.publish }}</div>
+            <p> {{ article.content }}</p>
+        </article>
+{% endblock %}
