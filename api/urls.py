@@ -22,7 +22,8 @@ app_name = "api"
 
 urlpatterns = [
     path("", ArticleListView.as_view(), name="article-list"),
+    # path("/token-revoke", RevokeToken.as_view(), name="revoke-token"),
     path("/users/", UserListView.as_view(), name="user-list"),
-    path("/<slug:slug>", ArticleDetailView.as_view(), name="article-detail"),
+    path("/<int:pk>", ArticleDetailView.as_view(), name="article-detail"),
     path("/users/<int:pk>", UserDetailView.as_view(), name="user-detail"),
 ]
