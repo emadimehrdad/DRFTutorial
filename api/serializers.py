@@ -13,7 +13,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 class ArticleSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
 
     # --------- Using model to represent author name ---------- #
-    # author = AuthorSerializer()
+    author = AuthorSerializer()
 
     # --------- Hyperlink method to represent author  ---------- #
     # author = serializers.HyperlinkedIdentityField(view_name='api:authors-detail')
@@ -22,12 +22,12 @@ class ArticleSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
     # author = serializers.CharField(source="author.username", read_only=True)
 
     # --------- Using SerializeMethodField to represent author name ---------- #
-    def get_author(self, obj):
-        return {
-            "username": obj.author.username,
-            "email": obj.author.email
-        }
-    author = serializers.SerializerMethodField("get_author")
+    # def get_author(self, obj):
+    #     return {
+    #         "username": obj.author.username,
+    #         "email": obj.author.email
+    #     }
+    # author = serializers.SerializerMethodField("get_author")
 
     class Meta:
         model = Article
