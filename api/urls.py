@@ -16,14 +16,25 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from .views import ArticleListView, ArticleDetailView, UserListView, UserDetailView
+from api.views import UserViewSet, ArticleViewSet, AuthorRetrieve
+from rest_framework import routers
 
 app_name = "api"
 
+
+router = routers.SimpleRouter()
+router.register(r'/users', UserViewSet, basename="users")
+router.register(r'/articles', ArticleViewSet, basename="articles")
+# urlpatterns = router.urls
 urlpatterns = [
-    path("", ArticleListView.as_view(), name="article-list"),
-    # path("/token-revoke", RevokeToken.as_view(), name="revoke-token"),
-    path("/users/", UserListView.as_view(), name="user-list"),
-    path("/<int:pk>", ArticleDetailView.as_view(), name="article-detail"),
-    path("/users/<int:pk>", UserDetailView.as_view(), name="user-detail"),
+    path("", include(router.urls)),
+    path("/author/<int:pk>/", AuthorRetrieve.as_view(), name="authors-detail")
 ]
+
+# urlpatterns = [
+#     path("", ArticleListView.as_view(), name="article-list"),
+#     # path("/token-revoke", RevokeToken.as_view(), name="revoke-token"),
+#     path("/users/", UserListView.as_view(), name="user-list"),
+#     path("/<int:pk>", ArticleDetailView.as_view(), name="article-detail"),
+#     path("/users/<int:pk>", UserDetailView.as_view(), name="user-detail"),
+# ]
